@@ -370,6 +370,12 @@ static SIAlertView *__si_alert_current_view;
         self.oldKeyWindow.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
     }
 #endif
+    
+    if(self.messageAttributedString != nil){
+        self.messageLabel.text = @"";
+        self.messageLabel.attributedText = self.messageAttributedString;
+    }
+        
 
     if (![[SIAlertView sharedQueue] containsObject:self]) {
         [[SIAlertView sharedQueue] addObject:self];
@@ -739,11 +745,8 @@ static SIAlertView *__si_alert_current_view;
         if (y > CONTENT_PADDING_TOP) {
             y += GAP;
         }
-        if(self.messageAttributedString != nil){
-            self.messageLabel.attributedText = self.messageAttributedString;
-        } else {
             self.messageLabel.text = self.message;
-        }
+        
         CGFloat height = [self heightForMessageLabel];
         self.messageLabel.frame = CGRectMake(CONTENT_PADDING_LEFT, y, self.containerView.bounds.size.width - CONTENT_PADDING_LEFT * 2, height);
         y += height;
